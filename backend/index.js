@@ -9,6 +9,8 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+const authRoutes = require("./routes/auth");
+
 mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -18,8 +20,18 @@ mongoose.connect(process.env.DATABASE, {
 })
 
 
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors());
+// app.use(express.session());
+
+
+app.use('/user', authRoutes)
+
+
 const port = process.env.PORT || 8880;
 
 app.listen(port, () => {
     console.log(`APP RUNNING AT ${port}`);
 })
+
