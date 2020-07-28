@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
-// const uid = require('uuid');
 const { v4: uuidv4 } = require('uuid');
 
 
@@ -29,6 +28,12 @@ var userSchema = new mongoose.Schema(
             type: String,
             trim: true
         },
+
+        encry_password: {
+            type: String,
+            required: true
+          },
+          
         salt: String,
 
         role: {
@@ -55,8 +60,8 @@ userSchema.virtual('password').set(function (password) {
 });
 
 userSchema.methods = {
-    authenticate: function (plainpassword) {
-        return this.securePassword(plainpassword) == this.encry_password;
+    authenticate: function(plainpassword) {
+        return this.securePassword(plainpassword) === this.encry_password;
     },
 
     securePassword: function(plainpassword) {

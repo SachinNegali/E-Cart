@@ -26,7 +26,7 @@ app.use(cors());
 // app.use(express.session());
 
 
-app.use('/user', authRoutes)
+app.use('/api/auth', authRoutes)
 
 
 const port = process.env.PORT || 8880;
